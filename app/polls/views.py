@@ -29,7 +29,10 @@ def cities(request):
         template = loader.get_template("polls/cities.html")
         city = request.GET.get('city')
         year = int(request.GET.get('year'))
-        context = {'title': 'Города'}
+        context = {'title': 'Города',
+                   'city': city.capitalize(),
+                   'year_description': cities_info[city][year]
+                   }
         return HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Города')
