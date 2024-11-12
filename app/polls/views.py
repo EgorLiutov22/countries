@@ -12,7 +12,11 @@ cities_info = {'paris': {'fact': 'Paris saint germain is 25-th team in champions
 
 def index(request):
     template = loader.get_template("polls/index.html")
-    context = dict()
+    context = {'title': 'Home page',
+               'pages': [('history', 'История'),
+                         ('cities', 'Города'),
+                         ('facts', 'Факты')
+                         ]}
     return HttpResponse(template.render(context, request))
 
 
@@ -22,9 +26,11 @@ def history(request):
 
 def cities(request):
     if request.GET:
+        template = loader.get_template("polls/cities.html")
         city = request.GET.get('city')
         year = int(request.GET.get('year'))
-        return HttpResponse(cities_info[city][year])
+        context = {'title': 'Города'}
+        return HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Города')
 
