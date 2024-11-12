@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import loader
 
 cities_info = {'paris': {'fact': 'Paris saint germain is 25-th team in champions ligue in current season ',
                          1924: '1924 Summer Olympics'
@@ -9,9 +11,9 @@ cities_info = {'paris': {'fact': 'Paris saint germain is 25-th team in champions
 
 
 def index(request):
-    res = '''<a href=/history>История</a><br>
-    <a href=/cities>Города</a>'''
-    return HttpResponse(res)
+    template = loader.get_template("polls/index.html")
+    context = dict()
+    return HttpResponse(template.render(context, request))
 
 
 def history(request):
